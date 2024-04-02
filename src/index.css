@@ -14,6 +14,15 @@ code {
 
 .container {
   max-width: 100%;
-  width: 1080px;
+  width: 50%;
   margin: 0 auto;
+}
+
+.flex {
+  display: flex;
+  height: 3em;
+}
+
+.space-between {
+  justify-content: space-between;
 }
