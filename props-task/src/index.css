@@ -17,12 +17,3 @@ code {
   width: 50%;
   margin: 0 auto;
 }
-
-.flex {
-  display: flex;
-  height: 3em;
-}
-
-.space-between {
-  justify-content: space-between;
-}
