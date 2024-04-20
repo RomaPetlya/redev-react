@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+}
+
+.halfDiv {
+  flex: 1;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid gray;
+  text-align: center;
+}
+
+.content {
+  text-align: center;
+}
