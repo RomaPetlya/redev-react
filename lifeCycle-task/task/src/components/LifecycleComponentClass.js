@@ -8,9 +8,8 @@ export class LifecycleComponentClass extends React.Component {
             tasks: [],
             filter: "all",
             isVisible: true,
-            count: 0
+            count: 0,
         };
-        this.setFilter = this.setFilter.bind(this);
     }
 
     setFilter(state) {
@@ -19,12 +18,12 @@ export class LifecycleComponentClass extends React.Component {
         });
     }
     hadleVisibility() {
-        this.setState(prevState => ({
-            isVisible: !prevState.isVisible
+        this.setState((prevState) => ({
+            isVisible: !prevState.isVisible,
         }));
     }
-    increment () {
-        this.setState(prevState => ({count: prevState.count + 1}))
+    increment() {
+        this.setState((prevState) => ({ count: prevState.count + 1 }));
     }
 
     async fetchTasks() {
@@ -39,10 +38,10 @@ export class LifecycleComponentClass extends React.Component {
     render() {
         const { tasks } = this.state;
         const filter = {
-            true: 'Все выполненные задачи',
-            false: 'Все не выполненные задачи',
-            all: 'Все задачи'
-        }
+            true: "Все выполненные задачи",
+            false: "Все не выполненные задачи",
+            all: "Все задачи",
+        };
 
         if (!this.state.isVisible) {
             return null;
@@ -67,7 +66,9 @@ export class LifecycleComponentClass extends React.Component {
                         </li>
                     ))}
                 </ol>
-                <button onClick={() => this.hadleVisibility()}>УНИЧТОЖИТЬ</button>
+                <button onClick={() => this.hadleVisibility()}>
+                    УНИЧТОЖИТЬ
+                </button>
                 <div>
                     <p>{this.state.count}</p>
                     <button onClick={() => this.increment()}>Увеличить</button>
@@ -77,20 +78,25 @@ export class LifecycleComponentClass extends React.Component {
     }
     componentDidMount() {
         this.fetchTasks();
+        console.log("КЛАССОВЫЙ компонент был монтирован");
     }
     componentDidUpdate(prevProps, prevState) {
         if (this.state.filter !== prevState.filter) {
             this.fetchTasks();
         }
         if (this.state.count !== prevState.count) {
-             console.log(this.state.count);
+            console.log(this.state.count, 'Class');
         }
+        if (!this.state.isVisible) {
+            console.log(
+                "КЛАССОВЫЙ компонент будет размонтирован С ЗАВИСИМОСТЬЮ"
+            );
+        } // ВЫЗЫВАЕТСЯ
     }
     componentWillUnmount() {
-        console.log("СЕЙЧАС ПРОПАДЕТ");
+        console.log("СЕЙЧАС ПРОПАДЕТ"); // НЕ ВЫЗЫВАЕТСЯ
     }
     shouldComponentUpdate(nextProps, nextState) {
         return nextState.count % 2 === 0;
-      }
+    }
 }
-
