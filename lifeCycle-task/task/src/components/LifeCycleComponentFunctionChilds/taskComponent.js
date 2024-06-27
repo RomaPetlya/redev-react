@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getTasks } from "../../functions/getTasks";
+import { filterParams } from "../../filterConfig";
+import { tasksDecribes } from "../../filterConfig";
 
 export const TaskComponent = () => {
     const [tasks, setTasks] = useState([]);
-    const [filter, setFilter] = useState("all");
+    const [filter, setFilter] = useState(filterParams.all);
 
     function handleFilter(state) {
         setFilter(state);
@@ -25,21 +27,19 @@ export const TaskComponent = () => {
             console.log("ФУНКЦИОНАЛЬНЫЙ Компонент задач будет размонтирован");
         };
     }, []);
-    const filterParams = {
-        true: "Все выполненные задачи",
-        false: "Все не выполненные задачи",
-        all: "Все задачи",
-    };
+
     return (
         <div>
-            <button onClick={() => handleFilter(true)}>
+            <button onClick={() => handleFilter(filterParams.completed)}>
                 Get completed tasks
             </button>
-            <button onClick={() => handleFilter(false)}>
+            <button onClick={() => handleFilter(filterParams.incompleted)}>
                 Get uncompleted tasks
             </button>
-            <button onClick={() => handleFilter("all")}>Get all tasks</button>
-            <p>{filterParams[filter]}</p>
+            <button onClick={() => handleFilter(filterParams.all)}>
+                Get all tasks
+            </button>
+            <p>{tasksDecribes[filter]}</p>
             <ol>
                 {tasks.map((item) => (
                     <li key={item.id}>

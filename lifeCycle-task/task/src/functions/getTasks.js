@@ -11,11 +11,11 @@ const config = { headers };
 export const getTasks = async (filter) => {
     try {
         let url = baseURL;
-        if (filter === true) {
+        if (filter === "completed") {
             console.log(`Выполненные`);
             url = `${url}?isCompleted=true`;
         }
-        if (filter === false) {
+        if (filter === "incompleted") {
             console.log(`Не выполненные`);
             url = `${url}?isCompleted=false`
         }

@@ -1,5 +1,8 @@
 import React from "react";
 import { getTasks } from "../functions/getTasks";
+import { filterParams } from "../filterConfig";
+import { tasksDecribes } from "../filterConfig";
+import { DestroyButton } from "./lifeCycleComponentClassChilds/destroyButton";
 
 export class LifecycleComponentClass extends React.Component {
     constructor(props) {
@@ -37,11 +40,6 @@ export class LifecycleComponentClass extends React.Component {
     }
     render() {
         const { tasks } = this.state;
-        const filter = {
-            true: "Все выполненные задачи",
-            false: "Все не выполненные задачи",
-            all: "Все задачи",
-        };
 
         if (!this.state.isVisible) {
             return null;
@@ -49,16 +47,16 @@ export class LifecycleComponentClass extends React.Component {
 
         return (
             <div>
-                <button onClick={() => this.setFilter(true)}>
+                <button onClick={() => this.setFilter(filterParams.completed)}>
                     Get completed tasks
                 </button>
-                <button onClick={() => this.setFilter(false)}>
+                <button onClick={() => this.setFilter(filterParams.incompleted)}>
                     Get uncompleted tasks
                 </button>
-                <button onClick={() => this.setFilter("all")}>
+                <button onClick={() => this.setFilter(filterParams.all)}>
                     Get all tasks
                 </button>
-                <p>{filter[this.state.filter]}</p>
+                <p>{tasksDecribes[this.state.filter]}</p>
                 <ol>
                     {tasks.map((item) => (
                         <li key={item.id}>
@@ -66,9 +64,9 @@ export class LifecycleComponentClass extends React.Component {
                         </li>
                     ))}
                 </ol>
-                <button onClick={() => this.hadleVisibility()}>
-                    УНИЧТОЖИТЬ
-                </button>
+                <div onClick={() => this.hadleVisibility()}>
+                    <DestroyButton /> 
+                </div>
                 <div>
                     <p>{this.state.count}</p>
                     <button onClick={() => this.increment()}>Увеличить</button>
@@ -93,9 +91,7 @@ export class LifecycleComponentClass extends React.Component {
             );
         } // ВЫЗЫВАЕТСЯ
     }
-    componentWillUnmount() {
-        console.log("СЕЙЧАС ПРОПАДЕТ"); // НЕ ВЫЗЫВАЕТСЯ
-    }
+    
     shouldComponentUpdate(nextProps, nextState) {
         return nextState.count % 2 === 0;
     }
